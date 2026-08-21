@@ -1,6 +1,38 @@
 import streamlit as st
 import math
 
+# パスワードの入力画面を作る関数
+def check_password():
+    """パスワードが正しいかチェックする関数（正しければ True を返す）"""
+    
+    # 初回実行時に入力状態を初期化
+    if "password_correct" not in st.session_state:
+        st.session_state["password_correct"] = False
+
+    # すでにログイン成功している場合は True を返す
+    if st.session_state["password_correct"]:
+        return True
+
+    # ログイン画面の表示
+    st.title("ログインが必要です")
+    user_password = st.text_input("パスワードを入力してください", type="password")
+    
+    if st.button("ログイン"):
+        # 💡 ここに好きなパスワードを設定します（例: mysecret123）
+        if user_password == "hym6767": 
+            st.session_state["password_correct"] = True
+            st.rerun() # 画面を再読み込みしてメイン画面へ
+        else:
+            st.error("パスワードが違います")
+            
+    return False
+
+# ----------------------------------------------------
+# メイン処理
+# ----------------------------------------------------
+# パスワードチェックが通った場合のみ、下のメインアプリが動く
+if check_password():
+
 # 海運費
 p_kaiun = 1000000
 # 登録検査費用
